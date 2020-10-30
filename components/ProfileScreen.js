@@ -1,31 +1,16 @@
 import React from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
-import { BigHead } from 'react-native-bigheads'
+import Avatar from './Avatar.js';
 
 export default function ProfileScreen({ navigation }) {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <BigHead
-  accessory="none"
-  bgColor="blue"
-  bgShape="circle"
-  body="chest"
-  clothing="shirt"
-  clothingColor="black"
-  eyebrows="raised"
-  eyes="normal"
-  facialHair="none"
-  graphic="none"
-  hair="short"
-  hairColor="black"
-  hat="none"
-  lashes={false}
-  lipColor="red"
-  mouth="grin"
-  showBackground={true}
-  size={200}
-  skinTone="brown"
-/>
+    <Avatar
+    gender={"bot"}
+    skinTone={"brown"}
+    hairColor={"black"}
+    size={300}
+    />
       <Text>Name:</Text>
       <Text>Name:</Text>
       <Text>Name:</Text>
