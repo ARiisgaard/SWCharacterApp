@@ -1,4 +1,12 @@
 {
   "name": "SWCharacterApp",
-  "displayName": "SWCharacterApp"
+  "displayName": "SWCharacterApp",
+  "expo": {
+    "name": "SWCharacterApp",
+    "slug": "SWCharacterApp",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
 }
