@@ -3,8 +3,10 @@ import axios from 'axios';
 import { Button, StyleSheet, Text, View } from 'react-native';
 import Avatar from './Avatar.js';
 
+
 export default function ProfileScreen({ navigation }) {
   const [data, setData] = useState({});
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -14,6 +16,7 @@ export default function ProfileScreen({ navigation }) {
 
       setData(result.data);
       console.log(result.data)
+      setLoaded(true);
     };
 
     fetchData();
@@ -21,16 +24,17 @@ export default function ProfileScreen({ navigation }) {
 
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+
     <Avatar
-    gender={"bot"}
-    skinTone={"brown"}
-    hairColor={"black"}
-    size={300}
-    />
+        gender={data.gender}
+        skinTone={data.skin_color === "fair" ? "light" : "black"}
+        hairColor={data.hair_color === "blond" ? "blonde" : "Pink"}
+        size={300}
+        />
       <Text>Name: {data.name}</Text>
       <Text>Height: {data.height}</Text>
       <Text>Weight: {data.mass}</Text>
-      <Text>Weight: {data.birth_year}</Text>
+      <Text>Birth Year: {data.birth_year}</Text>
       <Button
         title="Go back to list"
         onPress={() => navigation.navigate('List')}
