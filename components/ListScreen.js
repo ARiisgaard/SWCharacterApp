@@ -1,5 +1,6 @@
 import React from 'react';
 import { Button, StyleSheet, Text, View, FlatList, StatusBar } from 'react-native';
+import Avatar from './Avatar.js';
 
 export default function ListScreen({ navigation }) {
 
@@ -7,36 +8,51 @@ export default function ListScreen({ navigation }) {
   {
     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
     name: 'Dave',
-    planet: 'Earth'
+    planet: 'Earth',
+    gender: "male",
+    skin_color: "black",
+    hair_color: "pink"
   },
   {
     id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
     name: 'Bob',
-    planet: 'Earth'
+    planet: 'Earth',
+    gender: "male",
+    skin_color: "black",
+    hair_color: "orange"
   },
   {
     id: '58694a0f-3da1-471f-bd96-145571e29d72',
     name: 'James',
-    planet: 'Mars'
+    planet: 'Mars',
+    gender: "male",
+    skin_color: "black",
+    hair_color: "orange"
   },
 ];
 
-const Item = ({ title }) => (
+const Item = ({ characterInfo }) => (
   <View style={styles.item}>
+  <Avatar
+      gender={characterInfo.gender}
+      skinTone={characterInfo.skin_color}
+      hairColor={characterInfo.hair_color}
+      size={100}
+      />
     <Text style={styles.title}
     onPress={() => navigation.navigate('Profile')}
-    >{title}</Text>
+    >{characterInfo.name}{characterInfo.planet}</Text>
   </View>
 );
 
 const renderItem = ({ item }) => (
-  <Item title={item.name}
+  <Item characterInfo={item}
   />
 );
 
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>List Screen</Text>
+    <View style={{ display: "flex", alignItems: 'center', justifyContent: 'center' }}>
+      <Text>Star Wars Characters</Text>
   <FlatList
     data={names}
     renderItem={renderItem}
@@ -48,15 +64,13 @@ const renderItem = ({ item }) => (
 
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginTop: StatusBar.currentHeight || 0,
-  },
   item: {
+    display: 'flex',
     backgroundColor: '#f9c2ff',
-    padding: 20,
     marginVertical: 8,
     marginHorizontal: 10,
+      right: 5,
+      left: 5
   },
   title: {
     fontSize: 32,
