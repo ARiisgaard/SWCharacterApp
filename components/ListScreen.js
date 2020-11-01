@@ -7,7 +7,7 @@ export default function ListScreen({ navigation }) {
   const names = [
   {
     id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-    name: 'Dave',
+    name: 'Luke Skywalker',
     planet: 'Earth',
     gender: "male",
     skin_color: "black",
@@ -15,7 +15,7 @@ export default function ListScreen({ navigation }) {
   },
   {
     id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-    name: 'Bob',
+    name: 'C-3PO',
     planet: 'Earth',
     gender: "male",
     skin_color: "black",
@@ -23,12 +23,27 @@ export default function ListScreen({ navigation }) {
   },
   {
     id: '58694a0f-3da1-471f-bd96-145571e29d72',
-    name: 'James',
+    name: 'R2-D2',
     planet: 'Mars',
     gender: "male",
     skin_color: "black",
     hair_color: "orange"
   },
+  {
+    id: '58694a0f-3da1-471f-bd96-145571e29d71',
+    name: 'Darth Vader',
+    planet: 'Mars',
+    gender: "female",
+    skin_color: "black",
+    hair_color: "orange"
+  },  {
+      id: '58694a0f-3da1-471f-bd96-315571e29d71',
+      name: 'Hansolo',
+      planet: 'Mars',
+      gender: "bot",
+      skin_color: "black",
+      hair_color: "orange"
+    },
 ];
 
 const Item = ({ characterInfo }) => (
@@ -37,11 +52,14 @@ const Item = ({ characterInfo }) => (
       gender={characterInfo.gender}
       skinTone={characterInfo.skin_color}
       hairColor={characterInfo.hair_color}
-      size={100}
+      size={80}
       />
-    <Text style={styles.title}
+      <View style={{ width: "100%"}}>
+    <Text style={styles.nameText}
     onPress={() => navigation.navigate('Profile')}
-    >{characterInfo.name}{characterInfo.planet}</Text>
+    >{characterInfo.name}</Text>
+    <Text style={styles.planetText}> {characterInfo.planet} </Text>
+    </View>
   </View>
 );
 
@@ -51,9 +69,10 @@ const renderItem = ({ item }) => (
 );
 
   return (
-    <View style={{ display: "flex", alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Star Wars Characters</Text>
-  <FlatList
+    <View style={{ display: "flex", alignItems: 'center', justifyContent: 'center',
+    backgroundColor: '#363636'}}>
+      <Text style={styles.titleText}>Star Wars Characters</Text>
+  <FlatList style={{width: "100%"}}
     data={names}
     renderItem={renderItem}
     keyExtractor={item => item.id}
@@ -65,14 +84,22 @@ const renderItem = ({ item }) => (
 
 const styles = StyleSheet.create({
   item: {
-    display: 'flex',
-    backgroundColor: '#f9c2ff',
+    flexDirection: "row",
+    backgroundColor: '#000000',
     marginVertical: 8,
     marginHorizontal: 10,
-      right: 5,
-      left: 5
   },
-  title: {
-    fontSize: 32,
+  titleText: {
+    fontSize: 35,
+    color: '#f0e43e'
+  },
+  nameText: {
+    fontSize: 30,
+    color: '#f0e43e'
+  },
+  planetText: {
+    fontSize: 15,
+    color: '#f0e43e',
+    alignContent: "flex-end"
   },
 });
