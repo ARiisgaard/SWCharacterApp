@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Button, StyleSheet, Text, View, FlatList, StatusBar, ActivityIndicator } from 'react-native';
 import Avatar from './Avatar.js';
+import colorDictionary from './colorDictionary.js';
+
+console.log(colorDictionary["fair"])
 
 export default function ListScreen({ navigation }) {
 
@@ -51,8 +54,8 @@ const Item = ({ characterInfo }) => (
   <View style={styles.item}>
   <Avatar
       gender={characterInfo.gender}
-      skinTone={characterInfo.skin_color === "fair" ? "light" : "black"}
-      hairColor={characterInfo.hair_color === "blond" ? "blonde" : "pink"}
+      skinTone={typeof colorDictionary[characterInfo.skin_color] !== "undefined" ? colorDictionary[characterInfo.skin_color] : "light"}
+      hairColor={typeof colorDictionary[characterInfo.hair_color] !== "undefined" ? colorDictionary[characterInfo.hair_color] : "pink"}
       size={80}
       />
       <View style={{ width: "100%"}}>
