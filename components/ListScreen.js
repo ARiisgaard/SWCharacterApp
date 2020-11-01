@@ -33,7 +33,9 @@ const Item = ({ characterInfo }) => (
       />
       <View style={{ width: "100%"}}>
     <Text style={styles.nameText}
-    onPress={() => navigation.navigate('Profile')}
+    onPress={() => navigation.navigate('Profile', {
+            chosenCharacter: characterInfo,
+          })}
     >{characterInfo.name}</Text>
     <Text style={styles.planetText}> {characterInfo.planet} </Text>
     </View>
@@ -52,7 +54,7 @@ const loadingItem =  <ActivityIndicator
 const loadedList =   <FlatList style={{width: "100%"}}
     data={people}
     renderItem={renderItem}
-    keyExtractor={item => item.id}
+    keyExtractor={item => item.url}
   />
 
   return (
