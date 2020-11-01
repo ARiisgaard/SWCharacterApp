@@ -6,7 +6,9 @@ import Avatar from './Avatar.js';
 export default function ListScreen({ navigation }) {
 
   const [people, setPeople] = useState({});
+  const [planetDictionary, setPlanetDictionary] = useState({});
   const [loaded, setLoaded] = useState(false);
+
 
   useEffect(() => {
     const fetchPeople = async () => {
@@ -22,7 +24,26 @@ export default function ListScreen({ navigation }) {
       setLoaded(true);
     };
 
-    // fetchPlanets();
+    const fetchPlanets = async ( site ) => {
+      const result = await axios(
+        site,
+      );
+
+      let planetNames = result.data.results.map(({ name }) => name)
+      let planetUrl = result.data.results.map(({ url }) => url)
+
+      var tempObject = planetDictionary
+
+      planetUrl.forEach((key, i) => tempObject[key] = planetNames[i]);
+
+      setPlanetDictionary(tempObject)
+      let nextPlanetPage = result.data.next
+      if (nextPlanetPage !== null) {
+        fetchPlanets(nextPlanetPage);
+      }
+    };
+
+    fetchPlanets("https://swapi.dev/api/planets/");
     fetchPeople();
   }, []);
 
@@ -40,7 +61,7 @@ const Item = ({ characterInfo }) => (
             chosenCharacter: characterInfo,
           })}
     >{characterInfo.name}</Text>
-    <Text style={styles.planetText}> {characterInfo.planet} </Text>
+    <Text style={styles.planetText}> {planetDictionary[characterInfo.homeworld]} </Text>
     </View>
   </View>
 );
