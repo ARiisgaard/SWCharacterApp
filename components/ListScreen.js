@@ -13,9 +13,12 @@ export default function ListScreen({ navigation }) {
       const result = await axios(
         'https://swapi.dev/api/people/',
       );
-
-      setPeople(result.data.results);
-      console.log(result.data.results[2])
+      const alphabeticalResult = result.data.results.sort(function(a, b){
+    if(a.name < b.name) { return -1; }
+    if(a.name > b.name) { return 1; }
+    return 0;
+})
+      setPeople(alphabeticalResult);
       setLoaded(true);
     };
 
