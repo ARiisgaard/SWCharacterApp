@@ -45,6 +45,9 @@ export default function ListScreen({ navigation }) {
       setSearchResult(alphabeticalResult);
       setDisplaySearchedData(true)
     }
+    else {
+      console.log("No characters found")
+    }
   };
 
   useEffect(() => {
@@ -112,8 +115,8 @@ const loadedList =   <FlatList style={{width: "100%"}}
     />
 
   return (
-    <View style={{ display: "flex", alignItems: 'center', justifyContent: 'center',
-    backgroundColor: '#363636'}}>
+    <View style={{ display: "flex", alignItems: 'center', 
+    backgroundColor: '#363636', height: "100%"}}>
       <Text style={styles.titleText}>Star Wars Characters</Text>
       <View style={{display: "flex",
         flexDirection: "row",}}>
