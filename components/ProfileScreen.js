@@ -13,7 +13,7 @@ export default function ProfileScreen({ route, navigation }) {
 
     <Avatar
         gender={chosenCharacter.gender}
-        skinTone={typeof colorDictionary[chosenCharacter.skin_color] !== "undefined" ? colorDictionary[chosenCharacter.skin_color] : "light"}
+        skinTone={typeof colorDictionary[chosenCharacter.skin_color] !== "undefined" ? colorDictionary[chosenCharacter.skin_color] : "yellow"}
         hairColor={typeof colorDictionary[chosenCharacter.hair_color] !== "undefined" ? colorDictionary[chosenCharacter.hair_color] : "pink"}
         size={300}
         />

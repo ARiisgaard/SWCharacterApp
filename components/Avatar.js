@@ -18,15 +18,15 @@ eyes={gender === 'female' || gender === 'male' ? "normal" : "cyborg"}
 facialHair="none"
 graphic="none"
 hair={gender === 'female' ? "long" : (gender === 'male') ? "short" : "none"}
-hairColor={hairColor}
+hairColor={typeof hairColor  !== "undefined" ? hairColor : "pink"}
 hat="none"
 lashes={gender === 'female' ? true : false}
 mouth="grin"
 showBackground={true}
 size={size}
-skinTone={skinTone}
+skinTone={typeof skinTone  !== "undefined" ? skinTone : "red"}
 />
 )
 }
-
+ 
 export default Avatar
