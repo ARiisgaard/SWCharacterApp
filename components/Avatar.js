@@ -14,7 +14,7 @@ body={gender === 'female' ? "breasts" : "chest"}
 clothing="shirt"
 clothingColor="red"
 eyebrows="raised"
-eyes="normal"
+eyes={gender === 'female' || gender === 'male' ? "normal" : "cyborg"}
 facialHair="none"
 graphic="none"
 hair={gender === 'female' ? "long" : (gender === 'male') ? "short" : "none"}

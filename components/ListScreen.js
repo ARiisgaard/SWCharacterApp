@@ -54,7 +54,7 @@ const Item = ({ characterInfo }) => (
   <View style={styles.item}>
   <Avatar
       gender={characterInfo.gender}
-      skinTone={typeof colorDictionary[characterInfo.skin_color] !== "undefined" ? colorDictionary[characterInfo.skin_color] : "light"}
+      skinTone={typeof colorDictionary[characterInfo.skin_color] !== "undefined" ? colorDictionary[characterInfo.skin_color] : "red"}
       hairColor={typeof colorDictionary[characterInfo.hair_color] !== "undefined" ? colorDictionary[characterInfo.hair_color] : "pink"}
       size={80}
       />
