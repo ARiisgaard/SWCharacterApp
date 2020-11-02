@@ -1,6 +1,5 @@
 const colorDictionary =
 {fair: "light",
-white: "light",
 light: "light",
 
 dark: "dark",
