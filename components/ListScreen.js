@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { StyleSheet, Text, TextInput, View, FlatList, StatusBar, ActivityIndicator } from 'react-native';
+import { StyleSheet, TouchableOpacity, Text, TextInput, View, FlatList, StatusBar, ActivityIndicator } from 'react-native';
 import { Button } from 'react-native-elements';
 import Avatar from './Avatar.js';
 import colorDictionary from './colorDictionary.js';
@@ -15,19 +15,8 @@ export default function ListScreen({ navigation }) {
   const [displaySearchedData, setDisplaySearchedData] = useState(false);
   const [searchResult, setSearchResult] = useState({});
 
-  const fetchPeople = async ( site ) => {
-    const result = await axios(
-      site,
-    );
-    const alphabeticalResult = result.data.results.sort(function(a, b){
-  if(a.name < b.name) { return -1; }
-  if(a.name > b.name) { return 1; }
-  return 0;
-})
-    setPeople(alphabeticalResult);
-    setLoaded(true);
 
-  };
+
 
   const searchPeople = async ( site ) => {
     setLoaded(false);
@@ -50,21 +39,40 @@ export default function ListScreen({ navigation }) {
     }
   };
 
+  //On mount load people and planets
   useEffect(() => {
+    //Loads people
+      const fetchPeople = async ( site ) => {
+        const result = await axios(
+          site,
+        );
+        //Organise the results in alphabetical order
+        const alphabeticalResult = result.data.results.sort(function(a, b){
+      if(a.name < b.name) { return -1; }
+      if(a.name > b.name) { return 1; }
+      return 0;
+    })
+        setPeople(alphabeticalResult);
+        //Replaces the loading spinner with the content
+        setLoaded(true);
+
+      };
+      //Fetch Planet data
     const fetchPlanets = async ( site ) => {
       const result = await axios(
         site,
       );
 
-      let planetNames = result.data.results.map(({ name }) => name)
-      let planetUrl = result.data.results.map(({ url }) => url)
-
-      var tempObject = planetDictionary
-
+      //Creates a planet dictionary translating urls into planet names
+      const planetNames = result.data.results.map(({ name }) => name)
+      const planetUrl = result.data.results.map(({ url }) => url)
+      const tempObject = planetDictionary
+      //Urls and names get added to the object in pairs
       planetUrl.forEach((key, i) => tempObject[key] = planetNames[i]);
-
       setPlanetDictionary(tempObject)
-      let nextPlanetPage = result.data.next
+
+      //Checks if all pages of planet data have been collected otherwise the function is repeated with the next page
+      const nextPlanetPage = result.data.next
       if (nextPlanetPage !== null) {
         fetchPlanets(nextPlanetPage);
       }
@@ -74,8 +82,19 @@ export default function ListScreen({ navigation }) {
     fetchPeople('https://swapi.dev/api/people/');
   }, []);
 
+//Component for displaying the people with an avatar, name and planet
+//CLicking it leads to the relevant ProfileScreen
+const renderItem = ({ item }) => (
+  <Item characterInfo={item}
+  />
+);
+
 const Item = ({ characterInfo }) => (
-  <View style={styles.item}>
+  <TouchableOpacity
+  style={styles.item}
+  onPress={() => navigation.navigate('Profile', {
+              chosenCharacter: characterInfo,
+            })}>
   <Avatar
       gender={characterInfo.gender}
       skinTone={typeof colorDictionary[characterInfo.skin_color] !== "undefined" ? colorDictionary[characterInfo.skin_color] : "yellow"}
@@ -84,38 +103,28 @@ const Item = ({ characterInfo }) => (
       />
       <View style={{ width: "100%"}}>
     <Text style={styles.nameText}
-    onPress={() => navigation.navigate('Profile', {
-            chosenCharacter: characterInfo,
-          })}
+
     >{characterInfo.name}</Text>
     <Text style={styles.planetText}> {planetDictionary[characterInfo.homeworld]} </Text>
     </View>
-  </View>
+  </TouchableOpacity >
 );
 
-const renderItem = ({ item }) => (
-  <Item characterInfo={item}
-  />
-);
+
+// A spinner for when the data is loading
 const loadingItem =  <ActivityIndicator
                color = '#bc2b78'
                size = "large"/>
 
-
+// List with either searchresults or everyone
 const loadedList =   <FlatList style={{width: "100%"}}
     data={displaySearchedData ? searchResult : people}
     renderItem={renderItem}
     keyExtractor={item => item.url}
   />
 
-  const searchResults =   <FlatList style={{width: "100%"}}
-      data={people}
-      renderItem={renderItem}
-      keyExtractor={item => item.url}
-    />
-
   return (
-    <View style={{ display: "flex", alignItems: 'center', 
+    <View style={{ display: "flex", alignItems: 'center',
     backgroundColor: '#363636', height: "100%"}}>
       <Text style={styles.titleText}>Star Wars Characters</Text>
       <View style={{display: "flex",
@@ -127,7 +136,7 @@ const loadedList =   <FlatList style={{width: "100%"}}
 <Button
   icon={<Icon
     name={displaySearchedData ? "times" : "search"}
-    size={50}
+    size={40}
     color="#f0e43e"
   />}
   buttonStyle={{
@@ -163,21 +172,13 @@ const styles = StyleSheet.create({
   },
   planetText: {
     fontSize: 15,
-    color: '#f0e43e',
-    alignContent: "flex-end"
+    color: '#f0e43e'
   },
   searchBar: {
   fontSize: 24,
   marginTop: 10,
   marginBottom: 10,
   width: '80%',
-  height: 50,
-  backgroundColor: 'white',
-},
-  searchButton: {
-  fontSize: 24,
-  margin: 10,
-  width: '20%',
   height: 50,
   backgroundColor: 'white',
 },

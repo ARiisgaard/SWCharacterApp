@@ -1,7 +1,7 @@
+//This is for translating between SWAPI's wording for colors to Bigheads wording
 const colorDictionary =
 {fair: "light",
 light: "light",
-
 dark: "dark",
 blond: "blonde",
 brown: "brown",

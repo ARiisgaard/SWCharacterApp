@@ -9,6 +9,7 @@ import colorDictionary from './colorDictionary.js';
 export default function ProfileScreen({ route, navigation }) {
   const { chosenCharacter } = route.params;
 
+  //This component is for character details - fx: "Height: 2.13"
   const CharacterDetails = ({ category,data }) => (
   <View style={{ flexDirection:'row', width: "100%"}}>
   <View style={{ alignItems: 'flex-end', width: "50%"}}>
@@ -62,7 +63,6 @@ const styles = StyleSheet.create({
   },
   returnButton: {
     backgroundColor: '#363636',
-
     marginTop: 5,
   },
 
